@@ -1,0 +1,176 @@
+body {
+    background-color: azure;
+    margin: 0;
+    color: azure;
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    padding: 0;
+}
+
+.hl {
+    color: orange;
+}
+
+h2 {
+    color:#181818;
+    font-size: 1.875em;
+}
+
+p {
+    font-size: 1.2em;
+}
+
+.supLink {
+    vertical-align: super;
+    text-decoration: none;
+    font-size: 0.875em;
+  }
+
+header {
+    background-color: #181818;
+    height: fit-content;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 3em;
+}
+
+.forceheader {
+    display: inline-block;
+    padding: 10px;
+}
+
+.eyelogo {
+    height: 100px;
+    width: 130px;
+    padding: 20px;
+}
+
+.title {
+    color:#181818;
+    font-size: 2em;
+    place-self: center;
+    word-wrap: break-word;
+}
+
+.darkmode {
+    background-color: white;
+    place-self: center;
+    height: 25px;
+    width: 50px;
+    border-radius: 20px; 
+    box-shadow: inset 0px 5px 10px rgba(0,0,0,0.2), inset 0px -5px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+.darkmode::before {
+    content: "";
+    background-color: #181818;
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+}
+
+.darkmode::before.active {
+    background-color: red;
+}
+
+footer {
+    background-color: #181818;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    display: list-item;
+    padding: 10px;
+    color: azure;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 20px;
+}
+
+.content {
+    height: fit-content;
+    width: 70vw;
+    place-self: center;
+    scroll-behavior: smooth;
+    display: none;
+    font-size: 1.2em;
+}
+
+.tab {
+    background-color: azure;
+    color: black;
+    place-self: center;
+    cursor: pointer;
+    padding: 18px;
+    border: 1px solid black;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    width: 70vw;
+    font-size: 2em;
+    padding: 10px;
+}
+  
+.active, .tab:hover {
+    background-color: orange;
+}
+  
+.par {
+    padding: 0 18px;
+    background:none; 
+    overflow: hidden;
+    max-width: 100%;
+    text-align: left;
+    color: #181818;
+    font-size: 1.2em;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+.demoimgs {
+    height: fit-content;
+    width: fit-content;
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.2);
+    position:relative;
+    align-self:center;
+}
+
+textarea {
+    background-color:#181818;
+    width: 100%;
+    height: fit-content;
+    border-radius: 3px;
+    font-family: courier, monospace;
+    padding: 0 3px;
+    color:orange;
+    resize: none;
+    font-size: inherit;
+  }
+
+@media only screen and (max-width: 768px) {
+    .container, .content, .tab, .par {
+        width: 100%;
+        height: fit-content;
+        overflow: hidden;
+        word-wrap:normal;
+    }
+    .title {
+        font-size: 1.8em;
+    }
+    .tab {
+        font-size: 1.8em;
+    }
+    .par {
+        font-size: 1em;
+        width: fit-content;
+    }
+
+}
